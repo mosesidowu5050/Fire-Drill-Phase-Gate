@@ -1,0 +1,20 @@
+@startuml
+class BankeATM {
+- firstName: String
+- lastName: String
+- pin: String
+- balance: float
+
+«constructor» BankeATM();
++ deposit(amount: float)
++ withdraw(amount: float)
++ getBalance(): float
+
++ createAccount(firstName: String, lastName: String, pin: String): Account
++ closeAccount( pin: String)
++ transfer(senderPin: String, recipientAccount: String, amount: float)
++ changePin(oldPin: String, newPin: String)
+
+}
+
+@enduml
