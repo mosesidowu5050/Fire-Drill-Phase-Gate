@@ -15,6 +15,7 @@ public class MenstrualApp {
         this.cycleStartDate = cycleStartDate;
         this.cycleEndDate = cycleEndDate;
         this.cycleLength = cycleLength;
+        this.flowDuration = 0;
     }
 
     public LocalDate calculateOvulationPeriod() {
@@ -22,14 +23,13 @@ public class MenstrualApp {
     }
 
     public int calculateFlowDuration(LocalDate startDate, LocalDate endDate) {
-        int daysBetween = 0;
         LocalDate currentDate = startDate;
 
         while (!currentDate.isEqual(endDate)) {
             currentDate = currentDate.plusDays(1);
-            daysBetween++;
+            flowDuration++;
         }
-        return daysBetween;
+        return flowDuration;
     }
 
     public LocalDate calculateStartDate() {
@@ -40,5 +40,23 @@ public class MenstrualApp {
         return cycleEndDate;
     }
 
+    public LocalDate calculateSafePeriodDate() {
+        return cycleEndDate.plusDays(1);
+    }
+
+    public LocalDate calculateSafePeriodEndDate() {
+        return cycleEndDate.plusDays(6);
+    }
+
+    public LocalDate calculateNextPeriodStartDate() {
+        return cycleEndDate.plusDays(cycleLength);
+    }
+
+    public LocalDate calculateNextPeriodEndDate(int cycleLengths, int flowDurationLength) {
+        if (cycleLengths < 21 || cycleLength > 35) {
+            System.out.println("This indicates irregular cycle length.");
+        }
+        return cycleStartDate.plusDays(cycleLengths + flowDurationLength);
+    }
 }
 
