@@ -1,6 +1,5 @@
 package menstrualWahala;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -49,5 +48,26 @@ public class MenstrualAppTest {
         System.out.println(actualFlowDuration);
         assertEquals(expectedFlowDuration, actualFlowDuration);
     }
+    @Test
+    public void testPeriodStartDateIsWorkingProperly() {
+        int cycleLength = 28;
+        LocalDate startDate = LocalDate.of(2025, 4, 5);
+        LocalDate endDate = LocalDate.of(2025, 4, 9);
+
+        MenstrualApp menstrualApp = new MenstrualApp(startDate, endDate, cycleLength);
+        LocalDate expectedStartDate = menstrualApp.calculateStartDate();
+        assertEquals(expectedStartDate, startDate);
+    }
+    @Test
+    public void testPeriodEndDateIsWorkingProperly() {
+        int cycleLength = 28;
+        LocalDate startDate = LocalDate.of(2025, 4, 5);
+        LocalDate endDate = LocalDate.of(2025, 4, 9);
+
+        MenstrualApp menstrualApp = new MenstrualApp(startDate, endDate, cycleLength);
+        LocalDate expectedDate = menstrualApp.calculateEndDate();
+        assertEquals(endDate, expectedDate);
+    }
+
 }
 

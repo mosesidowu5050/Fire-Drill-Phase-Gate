@@ -1,11 +1,8 @@
 package menstrualWahala;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 
 public class MenstrualApp {
-    private String name;
     private LocalDate cycleStartDate;
     private LocalDate cycleEndDate;
     private int cycleLength;
@@ -34,5 +31,14 @@ public class MenstrualApp {
         }
         return daysBetween;
     }
+
+    public LocalDate calculateStartDate() {
+        return cycleStartDate;
+    }
+
+    public LocalDate calculateEndDate() {
+        return cycleEndDate;
+    }
+
 }
 

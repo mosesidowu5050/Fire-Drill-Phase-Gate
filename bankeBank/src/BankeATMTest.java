@@ -133,10 +133,9 @@ public class BankeATMTest {
 
         assertEquals(1500.00, atm.getBalance("1234", ayo), 0.01);
         assertEquals(500.00, atm.getBalance("4554", dada), 0.01);
-        assertThrows(IllegalArgumentException.class, () -> {
-            atm.getBalance("1234", null);
-            atm.getBalance(null, null);
-        });
+        assertThrows(IllegalArgumentException.class, () -> atm.getBalance("1234", null));
+        assertThrows(IllegalArgumentException.class, () -> atm.getBalance(null, null));
+
     }
 
     @Test
