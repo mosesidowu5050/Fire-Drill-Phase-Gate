@@ -17,7 +17,6 @@ public class MenstrualAppTest {
         LocalDate endDate = LocalDate.of(2025, 5, 9);
         new MenstrualApp(startDate, endDate, cycleLengthOne);
         new MenstrualApp(startDate, endDate, cycleLengthTwo);
-
     }
 
     @Test
@@ -101,17 +100,6 @@ public class MenstrualAppTest {
         LocalDate expectedDateForNextPeriodStartDate = endDate.plusDays(cycleLength);
         assertEquals(nextPeriodStartDate, expectedDateForNextPeriodStartDate);
     }
-    @Test
-    public void testThatCalculateNextPeriodEndDate(){
-        int cycleLength = 28;
-        int flowDuration = 5;
-        LocalDate startDate = LocalDate.of(2025, 4, 5);
-        LocalDate endDate = LocalDate.of(2025, 4, 10);
 
-        MenstrualApp menstrualApp = new MenstrualApp(startDate, endDate, cycleLength);
-        LocalDate nextPeriodEndDate = menstrualApp.calculateNextPeriodEndDate(cycleLength, flowDuration);
-        LocalDate expectedDateForNextPeriodEndDate = startDate.plusDays(cycleLength + flowDuration);
-        assertEquals(nextPeriodEndDate, expectedDateForNextPeriodEndDate);
-    }
 }
 

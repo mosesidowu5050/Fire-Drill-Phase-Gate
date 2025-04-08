@@ -1,36 +1,65 @@
 package menstrualWahala;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class MenstrualAppWorkingPrototype {
     public static void main(String[] args) {
-
-
-        java.util.Scanner userInput = new java.util.Scanner(System.in);
-
-        System.out.print("Welcome to Menstrual Wahala!\n");
-
-
-        System.out.print("Enter your start date in this format YYYY-MM-DD: ");
-        String startDate = userInput.nextLine();
-
-        System.out.print("Enter your end date in this format YYYY-MM-DD: ");
-        String endDate = userInput.nextLine();
-
-        System.out.print("Enter your cycle length: ");
-        int cycleLength = userInput.nextInt();
-
+        Scanner userInput = new Scanner(System.in);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate flowStartDate = LocalDate.parse(startDate, dateFormat);
-        LocalDate flowEndDate = LocalDate.parse(endDate, dateFormat);
+        LocalDate cycleStartDate = null;
+        LocalDate cycleEndDate = null;
 
-        MenstrualApp menstrualApp = new MenstrualApp(flowStartDate, flowEndDate, cycleLength);
+        while (cycleStartDate == null) {
+            System.out.print("Enter your cycle start date (YYYY-MM-DD): ");
+            String startDate = userInput.nextLine();
+            try {
+                cycleStartDate = LocalDate.parse(startDate, dateFormat);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please try again.");
+            }
+        }
 
-        System.out.println("Period Start: " + menstrualApp.calculateStartDate());
-        System.out.println("Period Ending end date is: " + menstrualApp.calculateEndDate());
+        while (cycleEndDate == null) {
+            System.out.print("Enter your cycle end date (YYYY-MM-DD): ");
+            String endDate = userInput.nextLine();
+            try {
+                cycleEndDate = LocalDate.parse(endDate, dateFormat);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please try again.");
+            }
+        }
 
+        int cycleLength;
+        while (true) {
+            System.out.print("Enter your cycle length: ");
+            if (userInput.hasNextInt()) {
+                cycleLength = userInput.nextInt();
+                if (cycleLength < 21 || cycleLength > 35) {
+                    System.out.println("Irregular cycle length.");
+                } else {
+                    break;
+                }
+            } else {
+                System.out.println("Invalid input. enter a valid number for the cycle length.");
+                userInput.next();
+            }
+        }
 
+        MenstrualApp menstrualApp = new MenstrualApp(cycleStartDate, cycleEndDate, cycleLength);
+
+        System.out.println("\nResults: ");
+
+        int flowDuration = menstrualApp.calculateFlowDuration(cycleStartDate, cycleEndDate);
+        System.out.println("Flow Duration: " + flowDuration + " days");
+
+        System.out.println("Start Date: " + menstrualApp.calculateStartDate());
+        System.out.println("End Date: " + menstrualApp.calculateEndDate());
+        System.out.println("Ovulation Period: " + menstrualApp.calculateOvulationPeriod());
+        System.out.println("Safe Period Start Date: " + menstrualApp.calculateSafePeriodDate());
+        System.out.println("Safe Period End Date: " + menstrualApp.calculateSafePeriodEndDate());
+        System.out.println("Next Period Start Date: " + menstrualApp.calculateNextPeriodStartDate());
     }
 }

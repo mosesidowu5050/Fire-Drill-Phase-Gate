@@ -51,12 +51,5 @@ public class MenstrualApp {
     public LocalDate calculateNextPeriodStartDate() {
         return cycleEndDate.plusDays(cycleLength);
     }
-
-    public LocalDate calculateNextPeriodEndDate(int cycleLengths, int flowDurationLength) {
-        if (cycleLengths < 21 || cycleLength > 35) {
-            System.out.println("This indicates irregular cycle length.");
-        }
-        return cycleStartDate.plusDays(cycleLengths + flowDurationLength);
-    }
 }
 
