@@ -18,7 +18,7 @@ public class MenstrualAppWorkingPrototype {
             try {
                 cycleStartDate = LocalDate.parse(startDate, dateFormat);
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please try again.");
+                System.out.println("Invalid date format. try again.");
             }
         }
 
@@ -28,7 +28,7 @@ public class MenstrualAppWorkingPrototype {
             try {
                 cycleEndDate = LocalDate.parse(endDate, dateFormat);
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format. Please try again.");
+                System.out.println("Invalid date format. try again.");
             }
         }
 
@@ -43,7 +43,7 @@ public class MenstrualAppWorkingPrototype {
                     break;
                 }
             } else {
-                System.out.println("Invalid input. enter a valid number for the cycle length.");
+                System.out.println("Invalid input. enter a valid number.");
                 userInput.next();
             }
         }
