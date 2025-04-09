@@ -11,6 +11,7 @@ public class MenstrualAppWorkingPrototype {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate cycleStartDate = null;
         LocalDate cycleEndDate = null;
+        int cycleLength;
 
         while (cycleStartDate == null) {
             System.out.print("Enter your cycle start date (YYYY-MM-DD): ");
@@ -32,7 +33,6 @@ public class MenstrualAppWorkingPrototype {
             }
         }
 
-        int cycleLength;
         while (true) {
             System.out.print("Enter your cycle length: ");
             if (userInput.hasNextInt()) {
@@ -61,5 +61,7 @@ public class MenstrualAppWorkingPrototype {
         System.out.println("Safe Period Start Date: " + menstrualApp.calculateSafePeriodDate());
         System.out.println("Safe Period End Date: " + menstrualApp.calculateSafePeriodEndDate());
         System.out.println("Next Period Start Date: " + menstrualApp.calculateNextPeriodStartDate());
+        System.out.println("Safe Period After Ovulation Period: " + menstrualApp.calculateSafePeriodAfterOvulation());
+        System.out.println("Safe Period Before Next Period: " + menstrualApp.calculateSafePeriodBeforeNextPeriod());
     }
 }
