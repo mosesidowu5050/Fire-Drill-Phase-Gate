@@ -44,7 +44,6 @@ public class MenstrualAppTest {
 
         int expectedFlowDuration = 5;
         int actualFlowDuration = menstrualApp.calculateFlowDuration(cycleStartDate, cycleEndDate);
-        System.out.println(actualFlowDuration);
         assertEquals(expectedFlowDuration, actualFlowDuration);
     }
     @Test
@@ -68,7 +67,7 @@ public class MenstrualAppTest {
         assertEquals(endDate, expectedDate);
     }
     @Test
-    public void testThatChecksIfSafePeriodStartDateIsIsValid(){
+    public void testSafePeriodStartDateAfterFlowDurationIsCompleted(){
         int cycleLength = 28;
         LocalDate startDate = LocalDate.of(2025, 4, 5);
         LocalDate endDate = LocalDate.of(2025, 4, 9);
@@ -79,7 +78,7 @@ public class MenstrualAppTest {
         assertEquals(SafePeriodStartDate, expectedDateForSafePeriod);
     }
     @Test
-    public void testThatChecksSafePeriodEndDateIsValid(){
+    public void testSafePeriodEndDateAfterFlowDurationBeforeOvulationTakePlace(){
         int cycleLength = 28;
         LocalDate startDate = LocalDate.of(2025, 4, 5);
         LocalDate endDate = LocalDate.of(2025, 4, 9);
@@ -89,6 +88,30 @@ public class MenstrualAppTest {
         LocalDate expectedDateForSafePeriodEndDate = endDate.plusDays(6);
         assertEquals(SafePeriodEndDate, expectedDateForSafePeriodEndDate);
     }
+    @Test
+    public void testSafePeriodAfterOvulationHaveTakenPlace(){
+        int cycleLength = 28;
+        LocalDate startDate = LocalDate.of(2025, 4, 5);
+        LocalDate endDate = LocalDate.of(2025, 4, 9);
+
+        MenstrualApp menstrualApp = new MenstrualApp(startDate, endDate, cycleLength);
+        LocalDate SafePeriodAfterOvulation = menstrualApp.calculateSafePeriodAfterOvulation();
+        LocalDate expectedDateForSafePeriod = endDate.minusDays(cycleLength / 2);
+        LocalDate resultDate = expectedDateForSafePeriod.plusDays(6);
+        assertEquals(SafePeriodAfterOvulation, resultDate);
+    }
+    @Test
+    public void testSafePeriodEndDateBeforeNextPeriodHappens(){
+        int cycleLength = 28;
+        LocalDate startDate = LocalDate.of(2025, 4, 5);
+        LocalDate endDate = LocalDate.of(2025, 4, 9);
+
+        MenstrualApp menstrualApp = new MenstrualApp(startDate, endDate, cycleLength);
+        LocalDate SafePeriodBeforeNextPeriod = menstrualApp.calculateSafePeriodBeforeNextPeriod();
+        LocalDate expectedDateForSafePeriodEndDate = endDate.plusDays(cycleLength - 1);
+        assertEquals(SafePeriodBeforeNextPeriod, expectedDateForSafePeriodEndDate);
+    }
+
     @Test
     public void testThatCalculateNextPeriodStartDate(){
         int cycleLength = 28;
