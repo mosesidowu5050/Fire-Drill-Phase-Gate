@@ -14,6 +14,9 @@ public class BankATM {
             if(!BankAccount.isValidPin(pin)){
                 throw new IllegalArgumentException("Invalid PIN");
             }
+            if (firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty() || pin == null || pin.isEmpty()) {
+                throw new IllegalArgumentException("Fields cannot be empty");
+            }
             Random randomNumber = new Random();
             String accountNumbersGenerator = String.format("%010d", randomNumber.nextInt(1000000000));
             BankAccount account = new BankAccount(firstName, lastName, pin, accountNumbersGenerator);
@@ -25,6 +28,10 @@ public class BankATM {
 
     public List<BankAccount> getAccount() {
         return bankAccounts;
+    }
+
+    public int getAccountSize(){
+        return bankAccounts.size();
     }
 
     public void transfer(String pin, BankAccount sender, BankAccount receiver, double transferAmount) {

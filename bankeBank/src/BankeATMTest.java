@@ -90,6 +90,26 @@ public class BankeATMTest {
 
 
 
+
+
+
+    @Test
+    public void testThrowExceptionIfDetailsForCreateAccountIsInvalidAndTheAccountSize(){
+        List<BankAccount> userAccounts = new ArrayList<>();
+        BankATM atm = new BankATM();
+        assertThrows(IllegalArgumentException.class, ()-> {
+        atm.createAccount(null, null, "1234");
+        });
+
+        String accountNumber = atm.getAccountNumber();
+        assertThrows(IllegalArgumentException.class, ()-> {
+        BankAccount accounts = new BankAccount(null, null, "1234", accountNumber);
+        userAccounts.add(accounts);
+        });
+        assertEquals(0, atm.getAccountSize());
+    }
+
+
     @Test
     public void testThatAccountCreationWorksProperly() {
         BankATM atm = new BankATM();
@@ -103,11 +123,12 @@ public class BankeATMTest {
         atm.createAccount("Ayo", "Adenuga", "1234");
         assertEquals("Ayo Adenuga", atm.getAccount().get(0).getName());
     }
+
     @Test
-    public void testThatCheckTheLengthOfTheAccountNumber() {
+    public void testThatCheckTheLengthOfTheAccountNumberIfItIsTenDigits() {
         BankATM atm = new BankATM();
         atm.createAccount("Ayo", "Adenuga", "1234");
-        String accountNumber = atm.createAccount("Dada", "Williams", "4554");
+        String accountNumber = atm.getAccountNumber();
         int length = 0;
         String checkAccountNumberLength = " ";
         for (int count = 0; count < accountNumber.length(); count++) {
@@ -122,9 +143,26 @@ public class BankeATMTest {
         List<BankAccount> userAccounts = new ArrayList<>();
         BankATM atm = new BankATM();
         atm.createAccount("Ayo", "Adenuga", "1234");
-        BankAccount account = new BankAccount("Ayo", "Adenuga", "1234", "1234567890");
+        String accountNumber = atm.getAccountNumber();
+        BankAccount account = new BankAccount("Ayo", "Adenuga", "1234", accountNumber);
         userAccounts.add(account);
         assertEquals(account, userAccounts.getFirst());
+    }
+
+    @Test
+    public void testAllAccountWereSuccessfullyAddedToTheCollection(){
+        List<BankAccount> userAccounts = new ArrayList<>();
+        BankATM atm = new BankATM();
+        atm.createAccount("Ayo", "Adenuga", "1234");
+        String accountNumberOne = atm.getAccountNumber();
+        atm.createAccount("Dada", "Williams", "4554");
+        String accountNumberTwo = atm.getAccountNumber();
+        BankAccount accountOne = new BankAccount("Ayo", "Adenuga", "1234", accountNumberOne);
+        userAccounts.add(accountOne);
+        BankAccount accountTwo = new BankAccount("Ayo", "Adenuga", "1234", accountNumberTwo);
+        userAccounts.add(accountTwo);
+
+        assertEquals(2, userAccounts.size());
     }
 
     @Test
