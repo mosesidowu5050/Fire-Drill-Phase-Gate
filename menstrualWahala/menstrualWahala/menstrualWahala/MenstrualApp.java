@@ -52,11 +52,6 @@ public class MenstrualApp {
         return cycleEndDate.plusDays(cycleLength);
     }
 
-    public LocalDate calculateSafePeriodAfterOvulation() {
-        LocalDate ovulationDate = cycleEndDate.minusDays(cycleLength / 2);
-        return ovulationDate.plusDays(6);
-    }
-
     public LocalDate calculateSafePeriodBeforeNextPeriod() {
         return cycleEndDate.plusDays(cycleLength - 1);
     }

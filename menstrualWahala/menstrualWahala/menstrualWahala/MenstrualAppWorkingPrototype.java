@@ -61,7 +61,6 @@ public class MenstrualAppWorkingPrototype {
         System.out.println("Safe Period Start Date: " + menstrualApp.calculateSafePeriodDate());
         System.out.println("Safe Period End Date: " + menstrualApp.calculateSafePeriodEndDate());
         System.out.println("Next Period Start Date: " + menstrualApp.calculateNextPeriodStartDate());
-        System.out.println("Safe Period After Ovulation Period: " + menstrualApp.calculateSafePeriodAfterOvulation());
         System.out.println("Safe Period Before Next Period: " + menstrualApp.calculateSafePeriodBeforeNextPeriod());
     }
 }
