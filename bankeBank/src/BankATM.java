@@ -16,7 +16,6 @@ public class BankATM {
             }
             Random randomNumber = new Random();
             String accountNumbersGenerator = String.format("%010d", randomNumber.nextInt(1000000000));
-
             BankAccount account = new BankAccount(firstName, lastName, pin, accountNumbersGenerator);
             bankAccounts.add(account);
             lastCreatedAccountNumber = accountNumbersGenerator;

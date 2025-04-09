@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class BankeATMTest {
@@ -84,14 +87,46 @@ public class BankeATMTest {
         assertEquals(3000.00, bankAccount.getBalance(), 0.01);
     }
 
+
+
+
     @Test
     public void testThatAccountCreationWorksProperly() {
         BankATM atm = new BankATM();
         atm.createAccount("Ayo", "Adenuga", "1234");
         atm.createAccount("Dada", "Williams", "4554");
         assertEquals(2, atm.getAccount().size());
+    }
+     @Test
+     public void testThatCheckIfAccountCreatedExists() {
+        BankATM atm = new BankATM();
+        atm.createAccount("Ayo", "Adenuga", "1234");
         assertEquals("Ayo Adenuga", atm.getAccount().get(0).getName());
     }
+    @Test
+    public void testThatCheckTheLengthOfTheAccountNumber() {
+        BankATM atm = new BankATM();
+        atm.createAccount("Ayo", "Adenuga", "1234");
+        String accountNumber = atm.createAccount("Dada", "Williams", "4554");
+        int length = 0;
+        String checkAccountNumberLength = " ";
+        for (int count = 0; count < accountNumber.length(); count++) {
+            checkAccountNumberLength += accountNumber.charAt(count);
+            length++;
+        }
+        assertEquals(10, length);
+    }
+
+    @Test
+    public void testThatAccountCreatedSuccessfullyWithTheInformationProvided() {
+        List<BankAccount> userAccounts = new ArrayList<>();
+        BankATM atm = new BankATM();
+        atm.createAccount("Ayo", "Adenuga", "1234");
+        BankAccount account = new BankAccount("Ayo", "Adenuga", "1234", "1234567890");
+        userAccounts.add(account);
+        assertEquals(account, userAccounts.getFirst());
+    }
+
     @Test
     public void testTransferWorksPerfectly(){
         BankATM atm = new BankATM();
