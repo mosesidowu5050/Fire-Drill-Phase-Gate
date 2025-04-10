@@ -79,7 +79,8 @@ public class BankeBankWorkingPrototype {
     public static void depositMoney() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }
@@ -123,7 +124,8 @@ public class BankeBankWorkingPrototype {
     public static void withdrawMoney() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }
@@ -165,7 +167,8 @@ public class BankeBankWorkingPrototype {
     public static void checkBalance() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }
@@ -183,9 +186,10 @@ public class BankeBankWorkingPrototype {
             System.out.println("Account not found.");
         } else {
             try {
+                userAccount.validatePin(pin);
                 System.out.println("Your balance is: " + userAccount.getBalance());
             } catch (IllegalArgumentException e) {
-                System.out.println("Getting balance failed." + e.getMessage());
+                System.out.println("Getting balance failed. " + e.getMessage());
             }
         }
     }
@@ -193,26 +197,27 @@ public class BankeBankWorkingPrototype {
     public static void transferMoney() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }
 
         System.out.print("Enter your pin: ");
         String pin = userInput.nextLine();
-        while (pin == null || !pin.matches("\\d{4}")) {
+        if (pin == null || !pin.matches("\\d{4}")) {
             System.out.print("Invalid pin. Enter again: ");
             pin = userInput.nextLine();
         }
 
         System.out.print("Enter transfer amount: ");
-        while (!userInput.hasNextDouble()) {
+        if (!userInput.hasNextDouble()) {
             System.out.print("Invalid amount. Enter a positive number: ");
             userInput.nextLine();
         }
         double transferAmount = userInput.nextDouble();
         userInput.nextLine();
-        while (transferAmount <= 0.0 || transferAmount > atm.getAccount().getFirst().getBalance()) {
+        if (transferAmount <= 0.0 || transferAmount > atm.getAccount().getFirst().getBalance()) {
             System.out.print("Invalid amount. Enter a positive number: ");
             transferAmount = userInput.nextDouble();
             userInput.nextLine();
@@ -232,7 +237,7 @@ public class BankeBankWorkingPrototype {
             System.out.println("Account not found.");
         } else {
             try {
-                atm.transfer(pin, senderAccount, receiverAccount, transferAmount);
+                senderAccount.transfer(pin, receiverAccount, transferAmount);
                 System.out.println("Transfer successful. Your balance is: " + senderAccount.getBalance());
             }
             catch (IllegalArgumentException e) {
@@ -244,7 +249,8 @@ public class BankeBankWorkingPrototype {
     public static void closeAccount() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }
@@ -275,7 +281,8 @@ public class BankeBankWorkingPrototype {
     public static void changePin() {
         System.out.print("Enter your account number: ");
         String accountNumber = userInput.nextLine();
-        while (accountNumber == null || !accountNumber.equals(atm.getAccountNumber()) || !accountNumber.matches("\\d{10}")) {
+        while (accountNumber == null || !accountNumber.matches("\\d{10}") || atm.findAccountByAccountNumber(accountNumber) == null)
+        {
             System.out.print("Invalid account number. Enter again: ");
             accountNumber = userInput.nextLine();
         }

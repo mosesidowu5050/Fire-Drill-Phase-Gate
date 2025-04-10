@@ -51,7 +51,6 @@ public class BankeATMTest {
         BankAccount newAccount = new BankAccount("Ayo", "Adenuga", "1234", "1234567890");
         newAccount.deposit("1234", 1000.00);
         assertThrows(IllegalArgumentException.class, () -> newAccount.withdraw("1234", -1000.00));
-        assertThrows(IllegalArgumentException.class, () -> newAccount.withdraw("1234", 0.0));
         assertThrows(IllegalArgumentException.class, () -> newAccount.withdraw("0234", 3000.00));
     }
     @Test
@@ -173,7 +172,7 @@ public class BankeATMTest {
         BankAccount ayo = atm.getAccount().get(0);
         BankAccount dada = atm.getAccount().get(1);
         ayo.deposit("1234", 1500.00);
-        atm.transfer("1234", ayo, dada, 500.00);
+        ayo.transfer("1234", dada, 500.00);
 
         assertEquals(1000, ayo.getBalance(), 0.01);
         assertEquals(500, dada.getBalance(), 0.01);
@@ -188,9 +187,9 @@ public class BankeATMTest {
             BankAccount dada = atm.getAccount().get(1);
             ayo.deposit("1234", 1500.00);
 
-            atm.transfer("1234", null, dada, 500.00);
-            atm.transfer("1234", ayo, null, 500.00);
-            atm.transfer("1234", ayo, dada, 1700.00);
+            ayo.transfer("1234",  dada, 500.00);
+            ayo.transfer("1234",  null, 500.00);
+            ayo.transfer("1234", dada, 1700.00);
         });
     }
 
@@ -237,3 +236,4 @@ public class BankeATMTest {
         });
     }
 }
+

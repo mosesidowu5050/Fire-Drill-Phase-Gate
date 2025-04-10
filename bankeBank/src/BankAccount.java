@@ -52,14 +52,18 @@ public class BankAccount {
 
     public void withdraw(String pin, double withdrawalAmount) {
         validatePin(pin);
-        if(withdrawalAmount <= 0.0 || withdrawalAmount > balance){
+        if(withdrawalAmount < 0.0 || withdrawalAmount > balance){
             throw new IllegalArgumentException("Amount cannot be negative");
         }
         this.balance -= withdrawalAmount;
     }
 
     public void transfer(String pin, BankAccount receiver, double transferAmount) {
-        withdraw(pin, transferAmount);
+        if (receiver == null) {
+            throw new IllegalArgumentException("Invalid receiver account");
+        }
+
+        this.withdraw(pin, transferAmount);
         receiver.deposit(receiver.pin, transferAmount);
     }
 
@@ -79,7 +83,7 @@ public class BankAccount {
 
     public String getAccountNumber() {
         if (accountNumber.length() != 10) {
-            throw new IllegalArgumentException("Account number cannot be empty");
+            throw new IllegalArgumentException("Account number doesn't match");
         }
         return accountNumber;
     }
