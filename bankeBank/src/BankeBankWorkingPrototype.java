@@ -85,15 +85,15 @@ public class BankeBankWorkingPrototype {
             accountNumber = userInput.nextLine();
         }
 
-        System.out.print("Enter deposit amount: ");
+        System.out.print("Enter deposit amount (minimum deposit is #100.00): ");
         while (!userInput.hasNextDouble()) {
-            System.out.print("Invalid amount. Enter a positive number: ");
+            System.out.print("Invalid amount. Minimum deposit is #100.00: ");
             userInput.nextLine();
         }
         double depositAmount = userInput.nextDouble();
         userInput.nextLine();
 
-        while (depositAmount <= 0.0) {
+        while (depositAmount <= 100.0) {
             System.out.print("Invalid amount. Enter a positive number: ");
             depositAmount = userInput.nextDouble();
             userInput.nextLine();
@@ -137,15 +137,15 @@ public class BankeBankWorkingPrototype {
             pin = userInput.nextLine();
         }
 
-        System.out.print("Enter withdrawal amount: ");
+        System.out.print("Enter withdrawal amount (minimum withdrawal is #100.00): ");
         while (!userInput.hasNextDouble()) {
             System.out.print("Invalid amount. Enter a positive number: ");
             userInput.nextLine();
         }
         double withdrawalAmount = userInput.nextDouble();
         userInput.nextLine();
-        while (withdrawalAmount <= 0.0) {
-            System.out.print("Invalid amount. Enter a positive number: ");
+        while (withdrawalAmount < 100.0) {
+            System.out.print("Invalid amount. Minimum withdrawal is #100.00: ");
             withdrawalAmount = userInput.nextDouble();
             userInput.nextLine();
         }
